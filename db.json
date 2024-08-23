@@ -1,0 +1,25 @@
+ {
+
+     "cartItems":[
+{
+         "name": "Acme Circles T-Shirt",
+         "price": 20,
+         "img": "/assets/t-shirt-1.avif",
+         "id": 1
+        },
+        {
+            "name": "Acme Cup",
+            "price": 15,
+            "img": "/assets/bag-1-dark.avif",
+            "id": 2
+        },
+        {
+            "name": "Acme Drawstring Bag",
+            "price": 12,
+            "img": "/assets/mug-1.avif",
+            "id": 3
+        }
+    ]
+    
+    
+}
