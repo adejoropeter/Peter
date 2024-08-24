@@ -16,6 +16,10 @@ import { RootState } from "../redux/store";
 import { closeDrawer, toggleDrawer } from "../redux/slices/cartDrawerSlice";
 import { Separator } from "../components/ui/separator";
 import { DialogTitle } from "./ui/dialog";
+import {
+  increaseItemQuantity,
+  removeItemFromCart,
+} from "../redux/slices/cartSlice";
 
 const Header = () => {
   const isDesktop = useMediaQuery("(min-width:758px)");
@@ -125,18 +129,30 @@ const Header = () => {
                     return (
                       <div className="flex w-full justify-between">
                         <div className="w-[80px] h-fit border relative rounded-[10px]">
-                          <img src={"/assets/t-shirt-1.avif"} alt="" />
-                          <div className="absolute bg-[#737373] top-0 p-1 w-6 flex justify-center items-center h-6 rounded-full">
+                          <img src={cart.img} alt="" />
+                          <div
+                            onClick={() =>
+                              dispatch(removeItemFromCart(cart.id))
+                            }
+                            className="absolute bg-[#737373] top-0 p-1 w-6 flex justify-center items-center h-6 rounded-full">
                             <X color="white" cursor="pointer" size="20px" />
                           </div>
                         </div>
-                        <h4 className="text-lg leading-5">{"sksks"}</h4>
+                        <h4 className="text-lg leading-5">{cart.name}</h4>
                         <div className="flex flex-col items-end gap-2">
-                          <h3 className="text-lg">$1203 USD</h3>
+                          <h3 className="text-lg">
+                            ${cart.price.toFixed(2)} USD
+                          </h3>
                           <div className="flex justify-between items-center w-[100px] py-2 px-2 h-fit rounded-full border">
                             <Minus size="17px" className="cursor-pointer" />
                             <span>{cart.quantity}</span>
-                            <Plus size="17px" className="cursor-pointer" />
+                            <Plus
+                              onClick={() =>
+                                dispatch(increaseItemQuantity({id:cart.id}))
+                              }
+                              size="17px"
+                              className="cursor-pointer"
+                            />
                           </div>
                         </div>
                       </div>

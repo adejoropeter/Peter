@@ -5,6 +5,7 @@ export type SubCartItem = {
 };
 
 export type ProductColorType= { color: string, id: number, isSelected: boolean }
+export type ProductSizeType= {size:string,id:number,isSelected:boolean}
 
 export type CartItemType = {
   name: string;
@@ -12,7 +13,7 @@ export type CartItemType = {
   img: string;
   id: number;
   productColor:ProductColorType[],
-  productSize:string[],
+  productSize:ProductSizeType[],
   subCartItem: SubCartItem[];
   quantity:number,
   trackingNum: number;

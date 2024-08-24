@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { RootState } from "../../redux/store";
 import { Separator } from "@radix-ui/react-select";
@@ -7,6 +7,7 @@ import { MoveLeft, MoveRight, Plus } from "lucide-react";
 import {
   addItemToCart,
   changeColorButton,
+  changeSizeColorButton,
   onClickOnImage,
   onNextProductColor,
   onPrevProductColor,
@@ -14,6 +15,7 @@ import {
 import { useNavigate, useParams, useSearchParams } from "react-router-dom";
 import { sub } from "date-fns";
 import { toggleDrawer } from "../../redux/slices/cartDrawerSlice";
+import { ProductSizeType } from "../../types/cartItemsType";
 
 const Product = () => {
   const eachItem = useSelector((state: RootState) => state.product.eachItem);
@@ -30,15 +32,18 @@ const Product = () => {
   const { name } = useParams<{ name: string }>(); // Get product name from URL
   const [searchParams, setSearchParams] = useSearchParams(); // Handle query parameters
   const cart = useSelector((state: RootState) => state.product.cartItems);
-
+  const allItems = useSelector((state: RootState) => state.product.product);
+  const pro = allItems.find((a) => {
+    return a.id === eachItem?.id;
+  });
   const updatedParams = new URLSearchParams(searchParams.toString());
   // Function to handle size change and update the URL
-  const handleSizeChange = (newSize: string) => {
+  const handleSizeChange = (newSize:ProductSizeType) => {
     // Set the new size parameter while keeping others intact
-    updatedParams.set("size", newSize);
-
+    updatedParams.set("size", newSize.size);
     // Update the search params without overwriting other params
     setSearchParams(updatedParams);
+    dispatch(changeSizeColorButton({id:eachItem!.id,proColId:newSize?.id}))
   };
 
   const handleImageChange = (image: string) => {
@@ -46,7 +51,7 @@ const Product = () => {
   };
 
   const handleAddToCart = () => {
-    dispatch(addItemToCart({data: eachItem! }));
+    dispatch(addItemToCart({ data: eachItem! }));
     dispatch(toggleDrawer());
     console.log(cart);
     console.log(eachItem);
@@ -146,9 +151,16 @@ const Product = () => {
             {eachItem?.productSize.map((size) => {
               return (
                 <button
-                  onClick={() => handleSizeChange(size)}
-                  className="bg-[#B0B0B0] hover:ring-3 text-sm font-semibold  hover:border-[#2562E9]  border-[0.1rem] rounded-full px-5 py-2 transition-all">
-                  {size}
+                  onClick={() =>{
+                    updatedParams.set("size", size.size);
+                    // Update the search params without overwriting other params
+                    setSearchParams(updatedParams);
+                    dispatch(changeSizeColorButton({id:eachItem!.id,proColId:size.id}))
+                  }}
+                  className={`${
+                    size.isSelected  ? "border-2 border-[#2562E9]" : ""
+                  } bg-[#B0B0B0] hover:ring-3 text-sm font-semibold  hover:border-[#2562E9]  border-[0.1rem] rounded-full px-5 py-2 transition-all`}>
+                  {size.size}
                 </button>
               );
             })}

@@ -11,7 +11,15 @@ export const items = [
     ],
     quantity: 0,
 
-    productSize: ["XS", "S", "M", "L", "XL", "XXL", "XXXL"],
+    productSize: [
+      { size: "XS", id: 1, isSelected: false },
+      { size: "S", id: 2, isSelected: false },
+      { size: "M", id: 3, isSelected: false },
+      { size: "L", id: 4, isSelected: false },
+      { size: "XL", id: 5, isSelected: false },
+      { size: "XXL", id: 6, isSelected: false },
+      { size: "XXXL", id: 7, isSelected: false },
+    ],
     subCartItem: [
       {
         id: 1,
@@ -40,7 +48,15 @@ export const items = [
       { color: "Black", id: 1, isSelected: false },
       { color: "White", id: 2, isSelected: false },
     ],
-    productSize: ["XS", "S", "M", "L", "XL", "XXL", "XXXL"],
+    productSize: [
+      { size: "XS", id: 1, isSelected: false },
+      { size: "S", id: 2, isSelected: false },
+      { size: "M", id: 3, isSelected: false },
+      { size: "L", id: 4, isSelected: false },
+      { size: "XL", id: 5, isSelected: false },
+      { size: "XXL", id: 6, isSelected: false },
+      { size: "XXXL", id: 7, isSelected: false },
+    ],
     subCartItem: [
       {
         id: 1,
@@ -69,12 +85,12 @@ export const items = [
       { color: "White", id: 2, isSelected: false },
     ],
     productSize: [
-      "6 x 8 inch",
-      "7 x 9 inch",
-      "8 x 11 inch",
-      "9 x 12 inch",
-      "10 x 15 inch",
-      "12 x 16 inch",
+      { size: "6 x 8 inch", id: 1, isSelected: false },
+      { size: "7 x 9 inch", id: 2, isSelected: false },
+      { size: "8 x 11 inch", id: 3, isSelected: false },
+      { size: "9 x 12 inch", id: 4, isSelected: false },
+      { size: "10 x 15 inch", id: 5, isSelected: false },
+      { size: "12 x 16 inch", id: 6, isSelected: false },
     ],
     subCartItem: [
       {

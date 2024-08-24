@@ -123,17 +123,35 @@ const cartSlice = createSlice({
       const selectedSubItem = selectedProduct?.subCartItem.find((a) => {
         return a.id === proColId;
       });
-      if (selectedProduct) {
+      if (state.eachItem) {
         state.eachItem = {
-          ...selectedProduct,
+          ...state.eachItem,
           trackingNum: proColId,
           img: selectedSubItem ? selectedSubItem.uri : "",
-          subCartItem: selectedProduct.subCartItem.map((a) => {
+          subCartItem: state.eachItem.subCartItem.map((a) => {
             return { ...a, isSelected: a.id === proColId };
           }),
-          productColor: selectedProduct!.productColor.map((a) => ({
+          productColor: state.eachItem!.productColor.map((a) => ({
             ...a,
             isSelected: selectedSubItem?.id === a.id,
+          })),
+        };
+      }
+    },
+    changeSizeColorButton: (
+      state,
+      action: PayloadAction<{ id: number; proColId: number }>
+    ) => {
+      const { id, proColId } = action.payload;
+      const selectedProduct = state.product.find((a) => {
+        return a.id === id;
+      });
+      if (state.eachItem) {
+        state.eachItem = {
+          ...state.eachItem,
+          productSize: state.eachItem!.productSize.map((a) => ({
+            ...a,
+            isSelected: proColId === a.id,
           })),
         };
       }
@@ -152,7 +170,6 @@ const cartSlice = createSlice({
         productColor,
         productSize,
         subCartItem,
-        quantity,
         trackingNum,
       } = action.payload.data;
       const itemIndex = state.cartItems.findIndex(
@@ -168,7 +185,6 @@ const cartSlice = createSlice({
             ? { ...a, quantity: a.quantity + 1 }
             : a;
         });
-        return;
       } else {
         // Add new item to cart
         // state.cartItems.push({ ...action.payload, quantity: 1 });
@@ -188,6 +204,25 @@ const cartSlice = createSlice({
         ];
       }
     },
+    removeItemFromCart: (state, action: PayloadAction<number>) => {
+      state.cartItems = state.cartItems.filter(
+        (item) => item.id !== action.payload
+      );
+    },
+    increaseItemQuantity: (
+      state,
+      action: PayloadAction<{ id: number }>
+    ) => {
+      const itemIndex = state.cartItems.findIndex(
+        (item) => item.id === action.payload.id
+      );
+      if (itemIndex >= 0) {
+        state.cartItems[itemIndex].quantity++;
+      }
+    },
+    clearCart: (state) => {
+      state.cartItems = [];
+    },
   },
 });
 
@@ -198,5 +233,8 @@ export const {
   addItemToCart,
   onPrevProductColor,
   changeColorButton,
+  changeSizeColorButton,
+  increaseItemQuantity,
+  removeItemFromCart,
 } = cartSlice.actions;
 export default cartSlice.reducer;
