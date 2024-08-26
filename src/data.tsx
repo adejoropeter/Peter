@@ -3,7 +3,7 @@ export const items = [
     name: "Acme Circles T-Shirt",
     price: 20,
     img: "/assets/t-shirt-1.avif",
-    id: 1,
+    id: "first",
     productColor: [
       { color: "Black", id: 1, isSelected: false },
       { color: "Blue", id: 2, isSelected: false },
@@ -24,15 +24,18 @@ export const items = [
       {
         id: 1,
         uri: "/assets/t-shirt-1.avif",
+        color:"Black",
         isSelected: true,
       },
       {
         id: 2,
         uri: "/assets/t-shirt-circles-blue.avif",
+        color:"Blue",
         isSelected: false,
       },
       {
         id: 3,
+        color:"White",
         uri: "/assets/t-shirt-white-2.avif",
         isSelected: false,
       },
@@ -43,7 +46,7 @@ export const items = [
     name: "Acme Cup",
     price: 15,
     img: "/assets/bag-1-dark.avif",
-    id: 2,
+    id: "second",
     productColor: [
       { color: "Black", id: 1, isSelected: false },
       { color: "White", id: 2, isSelected: false },
@@ -61,11 +64,13 @@ export const items = [
       {
         id: 1,
         uri: "/assets/bag-1-dark.avif",
+        color:"Black",
         isSelected: true,
       },
       {
         id: 2,
         uri: "/assets/bag-1-light.avif",
+        color:"White",
         isSelected: false,
       },
     ],
@@ -78,7 +83,7 @@ export const items = [
     price: 12,
     quantity: 0,
     img: "/assets/mug-1.avif",
-    id: 3,
+    id: "third",
     trackingNum: 1,
     productColor: [
       { color: "Black", id: 1, isSelected: false },
@@ -96,6 +101,7 @@ export const items = [
       {
         id: 1,
         uri: "/assets/t-shirt-1.avif",
+        
         isSelected: true,
       },
       {

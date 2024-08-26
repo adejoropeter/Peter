@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import {
   Drawer,
   DrawerContent,
@@ -17,19 +17,28 @@ import { closeDrawer, toggleDrawer } from "../redux/slices/cartDrawerSlice";
 import { Separator } from "../components/ui/separator";
 import { DialogTitle } from "./ui/dialog";
 import {
-  increaseItemQuantity,
+  decrementCartItemQuantity,
+  incrementCartItemQuantity,
   removeItemFromCart,
+  selectCartTotal,
 } from "../redux/slices/cartSlice";
 
 const Header = () => {
   const isDesktop = useMediaQuery("(min-width:758px)");
   const isOpen = useSelector((state: RootState) => state.drawer.isOpen);
+  const eachItem = useSelector((state: RootState) => state.product.eachItem);
   const dispatch = useDispatch();
   const cartItems = useSelector((state: RootState) => state.product.cartItems);
   const handleOverlayClick = (e: React.MouseEvent) => {
     e.stopPropagation(); // Prevent any other clicks from interfering
     dispatch(closeDrawer());
   };
+  const handleDecrementOfQuantity=(id:string)=> {
+
+    dispatch(decrementCartItemQuantity({ cartItemId: id}));
+  }
+
+  const cartTotal = useSelector((state:RootState) => selectCartTotal(state.product));
 
   return (
     <header className="bg- px-4 py-4 w-full h-[10%]  flex items-center justify-between">
@@ -109,8 +118,9 @@ const Header = () => {
         <div>
           <DrawerTrigger
             onClick={() => dispatch(toggleDrawer())}
-            className="bg-[#FAFAFA] border-[1px] rounded-[8px] border-[#E5E5E5] p-[13px]">
+            className="bg-[#FAFAFA] border-[1px] rounded-[8px] border-[#E5E5E5] p-[13px] relative">
             <ShoppingCart color="black" size="18px" />
+            <div className="w-5 h-5 rounded-[4px] flex justify-center items-center text-sm bg-blue-900 absolute -top-3 right-0">{cartItems.length}</div>
           </DrawerTrigger>
 
           <DrawerContent className="fixed top-0 right-0 h-full w-full max-w-[400px] z-50 ">
@@ -138,18 +148,29 @@ const Header = () => {
                             <X color="white" cursor="pointer" size="20px" />
                           </div>
                         </div>
-                        <h4 className="text-lg leading-5">{cart.name}</h4>
+                        <div className="flex flex-col">
+                          <h4 className="text-lg leading-5">{cart.name}</h4>
+                          {/* <h4>{findColor?.color}</h4> */}
+                        </div>
                         <div className="flex flex-col items-end gap-2">
                           <h3 className="text-lg">
                             ${cart.price.toFixed(2)} USD
                           </h3>
                           <div className="flex justify-between items-center w-[100px] py-2 px-2 h-fit rounded-full border">
-                            <Minus size="17px" className="cursor-pointer" />
+                            <Minus
+                              onClick={()=>handleDecrementOfQuantity(cart.id)}
+                              size="17px"
+                              className="cursor-pointer"
+                            />
                             <span>{cart.quantity}</span>
                             <Plus
-                              onClick={() =>
-                                dispatch(increaseItemQuantity({id:cart.id}))
-                              }
+                              onClick={() => {
+                                dispatch(
+                                  incrementCartItemQuantity({
+                                    cartItemId: cart.id,
+                                  })
+                                );
+                              }}
                               size="17px"
                               className="cursor-pointer"
                             />
@@ -171,7 +192,8 @@ const Header = () => {
                   </div>
                   <div className="flex mb-2 justify-between w-full">
                     <h4>Total</h4>
-                    <p>$200.00 USD</p>
+                    <p>${cartTotal.toFixed(2)} USD </p>
+
                   </div>
                   <hr />
                   <button className="w-full hover:bg-[#3A72ED] text-white flex justify-center items-center h-10 bg-[#5b7bc0] rounded-full">

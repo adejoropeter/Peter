@@ -8,7 +8,7 @@ import CartItem from "../../components/CartItem";
 
 const Home = () => {
   const isDesktop = useMediaQuery("(min-width:758px)");
-  const products = useSelector((state: RootState) => state.product.product);
+  const products = useSelector((state: RootState) => state.product?.product);
 
   return (
     <main className="flex flex-col  h-fit">

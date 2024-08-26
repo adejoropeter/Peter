@@ -23,7 +23,7 @@ const Product = () => {
     (state: RootState) => state.product.eachItem?.trackingNum
   );
   const dispatch = useDispatch();
-  const handleNext = (id: number) => {
+  const handleNext = (id: string) => {
     dispatch(onNextProductColor({ subId: id }));
   };
   const handlePrev = () => {
@@ -43,7 +43,7 @@ const Product = () => {
     updatedParams.set("size", newSize.size);
     // Update the search params without overwriting other params
     setSearchParams(updatedParams);
-    dispatch(changeSizeColorButton({id:eachItem!.id,proColId:newSize?.id}))
+    dispatch(changeSizeColorButton({id:eachItem!.id ,proColId:newSize?.id}))
   };
 
   const handleImageChange = (image: string) => {
@@ -51,7 +51,7 @@ const Product = () => {
   };
 
   const handleAddToCart = () => {
-    dispatch(addItemToCart({ data: eachItem! }));
+    dispatch(addItemToCart (eachItem! ));
     dispatch(toggleDrawer());
     console.log(cart);
     console.log(eachItem);
@@ -155,7 +155,7 @@ const Product = () => {
                     updatedParams.set("size", size.size);
                     // Update the search params without overwriting other params
                     setSearchParams(updatedParams);
-                    dispatch(changeSizeColorButton({id:eachItem!.id,proColId:size.id}))
+                    dispatch(changeSizeColorButton({id:eachItem!.id ,proColId:size.id}))
                   }}
                   className={`${
                     size.isSelected  ? "border-2 border-[#2562E9]" : ""
