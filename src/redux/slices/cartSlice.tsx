@@ -36,10 +36,10 @@ const cartSlice = createSlice({
         return a.isSelected;
       });
 
-      if (selectedItem) {
+      if (selectedItem ) {
         state.eachItem = {
           ...selectedItem,
-          productColor: selectedItem.productColor.map((a) => {
+          productColor: selectedItem.productColor?.map((a) => {
             return { ...a, isSelected: selectedSubItem?.id === a.id };
           }),
         };
@@ -126,7 +126,7 @@ const cartSlice = createSlice({
       const selectedSubItem = selectedProduct?.subCartItem.find(
         (a) => a.id === proColId
       );
-      if (state.eachItem) {
+      if (state.eachItem && state.eachItem.productColor) {
         state.eachItem = {
           ...state.eachItem,
           trackingNum: proColId,
@@ -149,7 +149,7 @@ const cartSlice = createSlice({
     ) => {
       const { id, proColId } = action.payload;
       const selectedProduct = state.product.find((a) => a.id === id);
-      if (state.eachItem) {
+      if (state.eachItem && state.eachItem.productSize) {
         state.eachItem = {
           ...state.eachItem,
           productSize: state.eachItem!.productSize.map((a) => ({
@@ -160,119 +160,27 @@ const cartSlice = createSlice({
       }
     },
 
-    // addItemToCart: (
-    //   state: initialStateType,
-    //   action: PayloadAction<CartItemType>
-    // ) => {
-    //   const {
-    //     id,
-    //     name,
-    //     price,
-    //     img,
-    //     subCartItem,
-    //     productColor,
-    //     productSize,
-    //     trackingNum,
-    //   } = action.payload;
-
-    //   const selectedColor = subCartItem.find((item) => item.isSelected)?.color;
-
-    //   const existingItem = state.cartItems.find(
-    //     (item) =>
-    //       item.id === id &&
-    //       item.subCartItem.some(
-    //         (cartSubItem) =>
-    //           cartSubItem.color === selectedColor && cartSubItem.isSelected
-    //       )
-    //   );
-
-    //   if (existingItem) {
-    //     existingItem.quantity += 1;
-    //   } else {
-    //     state.cartItems.push({
-    //       id: state.cartItems.length + 1,
-    //       img,
-    //       name,
-    //       price,
-    //       productColor,
-    //       productSize,
-    //       subCartItem: state.eachItem?.subCartItem!,
-    //       trackingNum,
-    //       quantity: 1,
-    //     });
-    //   }
-    // },
-    // addItemToCart: (
-    //   state: initialStateType,
-    //   action: PayloadAction<CartItemType>
-    // ) => {
-    //   const {
-    //     id,
-    //     name,
-    //     price,
-    //     img,
-    //     subCartItem,
-    //     productColor,
-    //     productSize,
-    //     trackingNum,
-    //   } = action.payload;
-    
-    //   // Extract the selected color from the subCartItem
-    //   const selectedColor = subCartItem.find((item) => item.isSelected)?.color;
-    
-    //   // Check if an item with the same id and selected color already exists in the cart
-    //   const existingItem = state.cartItems.find(
-    //     (item) =>
-    //       item.id === id &&
-    //       item.subCartItem.some(
-    //         (cartSubItem) =>
-    //           cartSubItem.color === selectedColor && cartSubItem.isSelected
-    //       )
-    //   );
-    
-    //   if (existingItem) {
-    //     // If the same item with the same color exists, increment the quantity
-    //     existingItem.quantity += 1;
-    //   } else {
-    //     // If it doesn't exist, add it as a new item
-    //     state.cartItems.push({
-    //       id,
-    //       img,
-    //       name,
-    //       price,
-    //       productColor,
-    //       productSize,
-    //       subCartItem: state.eachItem?.subCartItem!, // Maintain the selected color and subCartItem structure
-    //       trackingNum,
-    //       quantity: 1,
-    //     });
-    //   }
-    // },
     addItemToCart: (
       state: initialStateType,
       action: PayloadAction<CartItemType>
     ) => {
       const {
         id,
-        name,
-        price,
-        img,
+
         subCartItem,
-        productColor,
+
         productSize,
-        trackingNum,
       } = action.payload;
 
-      // Extract the selected color and size
-      const selectedColor = subCartItem.find((item) => item.isSelected)?.color;
-      const selectedSize = productSize.find((size) => size.isSelected)?.size;
+      const selectedColor =
+        subCartItem && subCartItem.find((item) => item.isSelected)?.color;
+      const selectedSize =
+        productSize && productSize.find((size) => size.isSelected)?.size;
 
-      // Generate a unique cartItemId based on product properties
       const cartItemId = `${id}-${selectedColor}-${selectedSize}`;
 
-      // Check if the exact item already exists in the cart
       const existingItem = state.cartItems.find(
-        (item) => item.id.toString() === cartItemId
+        (item) => item.id === cartItemId
       );
 
       if (existingItem) {
@@ -280,13 +188,11 @@ const cartSlice = createSlice({
       } else {
         state.cartItems.push({
           ...action.payload,
-          id:cartItemId, // Add the unique cartItemId
+          id: cartItemId,
           quantity: 1,
         });
       }
     },
-
-    
 
     incrementCartItemQuantity: (
       state,
@@ -310,17 +216,17 @@ const cartSlice = createSlice({
 
       const existingItem = state.cartItems.find(
         (item) => item.id === cartItemId
-      )
+      );
 
-      if (existingItem ) {
+      if (existingItem) {
         existingItem.quantity -= 1;
       }
-        // If quantity is less than or equal to 0, remove the item from the cart
-        if (existingItem?.quantity! <= 0) {
-          state.cartItems = state.cartItems.filter(
-            (item) => item.id !== cartItemId
-          );
-        }
+
+      if (existingItem?.quantity! <= 0) {
+        state.cartItems = state.cartItems.filter(
+          (item) => item.id !== cartItemId
+        );
+      }
     },
 
     removeItemFromCart: (state, action: PayloadAction<string>) => {

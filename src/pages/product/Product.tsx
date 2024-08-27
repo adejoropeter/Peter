@@ -13,7 +13,6 @@ import {
   onPrevProductColor,
 } from "../../redux/slices/cartSlice";
 import { useNavigate, useParams, useSearchParams } from "react-router-dom";
-import { sub } from "date-fns";
 import { toggleDrawer } from "../../redux/slices/cartDrawerSlice";
 import { ProductSizeType } from "../../types/cartItemsType";
 
@@ -38,12 +37,14 @@ const Product = () => {
   });
   const updatedParams = new URLSearchParams(searchParams.toString());
   // Function to handle size change and update the URL
-  const handleSizeChange = (newSize:ProductSizeType) => {
+  const handleSizeChange = (newSize: ProductSizeType) => {
     // Set the new size parameter while keeping others intact
     updatedParams.set("size", newSize.size);
     // Update the search params without overwriting other params
     setSearchParams(updatedParams);
-    dispatch(changeSizeColorButton({id:eachItem!.id ,proColId:newSize?.id}))
+    dispatch(
+      changeSizeColorButton({ id: eachItem!.id, proColId: newSize?.id })
+    );
   };
 
   const handleImageChange = (image: string) => {
@@ -51,10 +52,19 @@ const Product = () => {
   };
 
   const handleAddToCart = () => {
-    dispatch(addItemToCart (eachItem! ));
+    dispatch(addItemToCart(eachItem!));
     dispatch(toggleDrawer());
     console.log(cart);
-    console.log(eachItem);
+  };
+  const disAbleFunc = () => {
+    const isSizeSelected = eachItem?.productSize?.every((a) => !a.isSelected);
+    const isColorSelected = eachItem?.subCartItem.every((a) => a.isSelected);
+    console.log(isSizeSelected);
+    if (isSizeSelected && !isColorSelected) {
+      return true;
+    } else {
+      return false;
+    }
   };
   const selectedItem = eachItem?.subCartItem.find((a) => a.isSelected);
 
@@ -71,7 +81,7 @@ const Product = () => {
       <div className="w-full col-span-3  sm:col-span-2 h-full  ">
         <div className="h-full w-full  flex flex-col">
           <div className="relative h-full w-full  flex flex-col justify-start items-center">
-            <div className="w-full h-[70%] flex justify-center">
+            <div className="w-full h-fit flex justify-center">
               <img
                 src={eachItem?.img}
                 alt=""
@@ -126,9 +136,11 @@ const Product = () => {
         <Separator className="border-gray-300 my-4" />
 
         <div className="flex flex-col gap-3">
-          <h2 className="text-black font-semibold">COLOR</h2>
+          {eachItem?.productColor && (
+            <h2 className="text-black font-semibold">COLOR</h2>
+          )}
           <div className="flex flex-wrap gap-2">
-            {eachItem?.productColor.map((col) => {
+            {eachItem?.productColor?.map((col) => {
               return (
                 <button
                   onClick={() => {
@@ -146,19 +158,26 @@ const Product = () => {
           </div>
         </div>
         <div className="flex flex-col gap-3">
-          <h2 className="text-black font-semibold">SIZE</h2>
+          {eachItem?.productSize && (
+            <h2 className="text-black font-semibold">SIZE</h2>
+          )}
           <div className="flex flex-wrap gap-2">
-            {eachItem?.productSize.map((size) => {
+            {eachItem?.productSize?.map((size) => {
               return (
                 <button
-                  onClick={() =>{
+                  onClick={() => {
                     updatedParams.set("size", size.size);
                     // Update the search params without overwriting other params
                     setSearchParams(updatedParams);
-                    dispatch(changeSizeColorButton({id:eachItem!.id ,proColId:size.id}))
+                    dispatch(
+                      changeSizeColorButton({
+                        id: eachItem!.id,
+                        proColId: size.id,
+                      })
+                    );
                   }}
                   className={`${
-                    size.isSelected  ? "border-2 border-[#2562E9]" : ""
+                    size.isSelected ? "border-2 border-[#2562E9]" : ""
                   } bg-[#B0B0B0] hover:ring-3 text-sm font-semibold  hover:border-[#2562E9]  border-[0.1rem] rounded-full px-5 py-2 transition-all`}>
                   {size.size}
                 </button>
@@ -171,8 +190,9 @@ const Product = () => {
             60% combed ringspun cotton/40% polyester jersey tee.
           </p>
           <button
+            disabled={disAbleFunc()}
             onClick={handleAddToCart}
-            className="bg-[#2562E9] text-sm font-semibold h-fit p-3  w-full flex border-2 rounded-full px-5 transition-all">
+            className="bg-[#2562E9] disabled:bg-[#7ca1f3] disabled:cursor-not-allowed text-sm font-semibold h-fit p-3  w-full flex border-2 rounded-full px-5 transition-all">
             <Plus className="flex-" />
             <b className="flex-1">Add To Cart</b>
           </button>

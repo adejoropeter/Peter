@@ -13,7 +13,7 @@ const Home = () => {
   return (
     <main className="flex flex-col  h-fit">
       <div className="w-full sm:h-[60%] px-4 py-4 grid grid-cols-3 gap-4">
-        {products.map((product, index) => (
+        {products.filter((_,idx)=>idx <=2).map((product, index) => (
           <CartItem product={product} key={index} index={index} />
         ))}
       </div>
@@ -25,11 +25,11 @@ const Home = () => {
               key={index}
               className={`relative overflow-hidden h-full bg-white border w-[400px] hover:[&>.first]:scale-105 hover:border-[#2563EB] rounded-xl cursor-pointer 
              `}>
-              <div className="flex first justify-center w-full items-center h-full transition-all">
+              <div className="flex first justify-center w-full items-center h-fit transition-all">
                 <img
                   src={product.img}
                   alt={product.name}
-                  className={`w-48  object-cover`}
+                  className={`w-48 h-fit  object-cover`}
                 />
               </div>
               <div

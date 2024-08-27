@@ -17,8 +17,8 @@ export type CartItemType = {
   price: number;
   img: string;
   id: string ;
-  productColor: ProductColorType[];
-  productSize: ProductSizeType[];
+  productColor?: ProductColorType[];
+  productSize?: ProductSizeType[];
   subCartItem: SubCartItem[];
   quantity: number;
   trackingNum: number;
