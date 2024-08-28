@@ -1,26 +1,37 @@
 import useMediaQuery from "../../hooks/useMediaQuery";
 import { Drawer, DrawerTrigger } from "../../components/ui/drawer";
 import { MenuIcon, ShoppingCart } from "lucide-react";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { RootState } from "../../redux/store";
 import { Button } from "../../components/ui/button";
 import CartItem from "../../components/CartItem";
+import { useGetAllProductQuery } from "../../redux/slices/productApiSlice";
+import { useEffect } from "react";
+import { useParams } from "react-router-dom";
+import Skeleton from "../../components/Skeleton";
 
 const Home = () => {
   const isDesktop = useMediaQuery("(min-width:758px)");
-  const products = useSelector((state: RootState) => state.product?.product);
+  const { data: products, error, isLoading } = useGetAllProductQuery();
 
+  if (error) return <p>Error loading products.</p>;
   return (
     <main className="flex flex-col  h-fit">
-      <div className="w-full sm:h-[60%] px-4 py-4 grid grid-cols-3 gap-4">
-        {products.filter((_,idx)=>idx <=2).map((product, index) => (
-          <CartItem product={product} key={index} index={index} />
-        ))}
-      </div>
+      {!isLoading ? (
+        <div className="w-full sm:h-[60%] px-4 py-4 grid grid-cols-3 gap-4">
+          {products!
+            .filter((_, idx) => idx <= 2)
+            .map((product, index) => (
+              <CartItem product={product} key={index} index={index} />
+            ))}
+        </div>
+      ) : (
+        <Skeleton />
+      )}
 
       <div className="relative overflow-hidden w-screen h-[200px]  text-white">
         <div className="absolute  gap-4 w-full h-full flex whitespace-nowrap animate-marquee">
-          {products.map((product, index) => (
+          {products?.map((product, index) => (
             <div
               key={index}
               className={`relative overflow-hidden h-full bg-white border w-[400px] hover:[&>.first]:scale-105 hover:border-[#2563EB] rounded-xl cursor-pointer 

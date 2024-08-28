@@ -1,18 +1,32 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { CartItemType } from "../types/cartItemsType";
 import { Button } from "./ui/button";
 import { useNavigate } from "react-router-dom";
 import { useDispatch } from "react-redux";
 import { onClickOnAnItem } from "../redux/slices/cartSlice";
+import { useGetEachProductQuery } from "../redux/slices/productApiSlice";
+import { saveEachItemToLocalStorage } from "../utils/localstorage";
 
-const CartItem = ({ product, index }: { product: CartItemType; index: number }) => {
+const CartItem = ({
+  product,
+  index,
+}: {
+  product: CartItemType;
+  index: number;
+}) => {
+  const { data: prod } = useGetEachProductQuery(product.id);
   const navigate = useNavigate();
   const dispatch = useDispatch();
   const handleClick = () => {
     navigate(`/product/${product.name}`);
-    dispatch(onClickOnAnItem(product));
-    console.log(product)
+    dispatch(onClickOnAnItem(prod!));
+    // saveEachItemToLocalStorage(product);
   };
+  useEffect(() => {
+    if (product) {
+      localStorage.setItem("product", JSON.stringify(product));
+    }
+  }, [product]);
   return (
     <>
       <div

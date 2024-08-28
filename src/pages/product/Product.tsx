@@ -17,6 +17,7 @@ import { toggleDrawer } from "../../redux/slices/cartDrawerSlice";
 import { ProductSizeType } from "../../types/cartItemsType";
 
 const Product = () => {
+  const { id } = useParams<{ id: string }>();
   const eachItem = useSelector((state: RootState) => state.product.eachItem);
   const trackingNumber = useSelector(
     (state: RootState) => state.product.eachItem?.trackingNum
@@ -59,7 +60,6 @@ const Product = () => {
   const disAbleFunc = () => {
     const isSizeSelected = eachItem?.productSize?.every((a) => !a.isSelected);
     const isColorSelected = eachItem?.subCartItem.every((a) => a.isSelected);
-    console.log(isSizeSelected);
     if (isSizeSelected && !isColorSelected) {
       return true;
     } else {

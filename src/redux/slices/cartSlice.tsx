@@ -1,6 +1,8 @@
 import { createSelector, createSlice, PayloadAction } from "@reduxjs/toolkit";
 import { items } from "../../data";
 import { CartItemType } from "../../types/cartItemsType";
+import { producApiSlice } from "./productApiSlice";
+import { loadEachItemFromLocalStorage } from "../../utils/localstorage";
 type initialStateType = {
   product: CartItemType[];
   eachItem: CartItemType | null;
@@ -8,7 +10,8 @@ type initialStateType = {
   // productTrackingNumber: number;
 };
 const initialState: initialStateType = {
-  product: items,
+  product: [],
+  // eachItem: loadEachItemFromLocalStorage(),
   eachItem: null,
   cartItems: [],
   // productTrackingNumber: 1,
@@ -32,18 +35,18 @@ const cartSlice = createSlice({
         (item) => item.id === action.payload.id
       );
 
-      const selectedSubItem = selectedItem?.subCartItem.find((a) => {
-        return a.isSelected;
-      });
-
-      if (selectedItem ) {
-        state.eachItem = {
-          ...selectedItem,
-          productColor: selectedItem.productColor?.map((a) => {
-            return { ...a, isSelected: selectedSubItem?.id === a.id };
-          }),
-        };
-      }
+      state.eachItem = action.payload;
+      // if (selectedItem) {
+      //   state.eachItem = {
+      //     ...selectedItem,
+      //     productColor: selectedItem.productColor?.map((a) => {
+      //       return {
+      //         ...a,
+      //         isSelected: a.id === selectedItem.trackingNum,
+      //       };
+      //     }),
+      //   };
+      // }
     },
 
     onNextProductColor: (state, action: PayloadAction<{ subId: string }>) => {
@@ -58,6 +61,12 @@ const cartSlice = createSlice({
           ...sub,
           isSelected: sub.id === state.eachItem?.trackingNum ? true : false,
         }));
+        state.eachItem.productColor = state.eachItem.productColor?.map(
+          (pro) => ({
+            ...pro,
+            isSelected: pro.id === state.eachItem?.trackingNum,
+          })
+        );
 
         state.eachItem.img =
           state.eachItem.subCartItem.find((sub) => sub.isSelected)?.uri || "";
@@ -104,6 +113,7 @@ const cartSlice = createSlice({
       const selectedSubItem = selectedProduct?.subCartItem.find(
         (sub) => sub.id === subId
       );
+
       if (selectedProduct) {
         state.eachItem = {
           ...selectedProduct,
@@ -114,6 +124,9 @@ const cartSlice = createSlice({
             isSelected: sub.id === subId,
           })),
         };
+        state.eachItem.productColor = selectedProduct.productColor?.map((a) => {
+          return { ...a, isSelected: a.id === state.eachItem?.trackingNum };
+        });
       }
     },
 
@@ -237,6 +250,15 @@ const cartSlice = createSlice({
     clearCart: (state) => {
       state.cartItems = [];
     },
+  },
+  extraReducers: (builder) => {
+    // Handle the fetched products and update the `product` state
+    builder.addMatcher(
+      producApiSlice.endpoints.getAllProduct.matchFulfilled,
+      (state, action: PayloadAction<CartItemType[]>) => {
+        state.product = action.payload;
+      }
+    );
   },
 });
 
