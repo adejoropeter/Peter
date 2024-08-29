@@ -11,10 +11,8 @@ type initialStateType = {
 };
 const initialState: initialStateType = {
   product: [],
-  // eachItem: loadEachItemFromLocalStorage(),
   eachItem: null,
   cartItems: [],
-  // productTrackingNumber: 1,
 };
 
 export const selectCartTotal = createSelector(

@@ -16,7 +16,7 @@ const Home = () => {
 
   if (error) return <p>Error loading products.</p>;
   return (
-    <main className="flex flex-col  h-fit">
+    <main className="flex flex-col  ">
       {!isLoading ? (
         <div className="w-full sm:h-[60%] px-4 py-4 grid grid-cols-3 gap-4">
           {products!
@@ -29,7 +29,7 @@ const Home = () => {
         <Skeleton />
       )}
 
-      <div className="relative overflow-hidden w-screen h-[200px]  text-white">
+      <div className="relative overflow-hidden  w-screen h-[200px]  text-white">
         <div className="absolute  gap-4 w-full h-full flex whitespace-nowrap animate-marquee">
           {products?.map((product, index) => (
             <div

@@ -1,12 +1,8 @@
-import React, { useEffect } from "react";
 import { CartItemType } from "../types/cartItemsType";
 import { Button } from "./ui/button";
 import { useNavigate } from "react-router-dom";
 import { useDispatch } from "react-redux";
 import { onClickOnAnItem } from "../redux/slices/cartSlice";
-import { useGetEachProductQuery } from "../redux/slices/productApiSlice";
-import { saveEachItemToLocalStorage } from "../utils/localstorage";
-
 const CartItem = ({
   product,
   index,
@@ -14,26 +10,20 @@ const CartItem = ({
   product: CartItemType;
   index: number;
 }) => {
-  const { data: prod } = useGetEachProductQuery(product.id);
   const navigate = useNavigate();
   const dispatch = useDispatch();
   const handleClick = () => {
     navigate(`/product/${product.name}`);
-    dispatch(onClickOnAnItem(prod!));
-    // saveEachItemToLocalStorage(product);
+    dispatch(onClickOnAnItem(product));
   };
-  useEffect(() => {
-    if (product) {
-      localStorage.setItem("product", JSON.stringify(product));
-    }
-  }, [product]);
+
   return (
     <>
       <div
         onClick={handleClick}
-        className={`relative overflow-hidden border hover:[&>.first]:scale-105 hover:border-[#2563EB] rounded-xl cursor-pointer ${
+        className={`relative overflow-hidden border h-full hover:[&>.first]:scale-105 hover:border-[#2563EB] rounded-xl cursor-pointer ${
           index === 0
-            ? "col-span-3 sm:col-span-2 row-span-1 sm:row-span-2"
+            ? "col-span-3 h- sm:col-span-2 row-span-1 sm:row-span-2"
             : "col-span-3 row-span-1 sm:col-span-1"
         }`}>
         <div className="flex first justify-center items-center h-full transition-all">

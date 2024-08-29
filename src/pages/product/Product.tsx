@@ -17,11 +17,7 @@ import { toggleDrawer } from "../../redux/slices/cartDrawerSlice";
 import { ProductSizeType } from "../../types/cartItemsType";
 
 const Product = () => {
-  const { id } = useParams<{ id: string }>();
   const eachItem = useSelector((state: RootState) => state.product.eachItem);
-  const trackingNumber = useSelector(
-    (state: RootState) => state.product.eachItem?.trackingNum
-  );
   const dispatch = useDispatch();
   const handleNext = (id: string) => {
     dispatch(onNextProductColor({ subId: id }));
@@ -29,28 +25,10 @@ const Product = () => {
   const handlePrev = () => {
     dispatch(onPrevProductColor());
   };
-  const { name } = useParams<{ name: string }>(); // Get product name from URL
-  const [searchParams, setSearchParams] = useSearchParams(); // Handle query parameters
+  const [searchParams, setSearchParams] = useSearchParams();
   const cart = useSelector((state: RootState) => state.product.cartItems);
   const allItems = useSelector((state: RootState) => state.product.product);
-  const pro = allItems.find((a) => {
-    return a.id === eachItem?.id;
-  });
   const updatedParams = new URLSearchParams(searchParams.toString());
-  // Function to handle size change and update the URL
-  const handleSizeChange = (newSize: ProductSizeType) => {
-    // Set the new size parameter while keeping others intact
-    updatedParams.set("size", newSize.size);
-    // Update the search params without overwriting other params
-    setSearchParams(updatedParams);
-    dispatch(
-      changeSizeColorButton({ id: eachItem!.id, proColId: newSize?.id })
-    );
-  };
-
-  const handleImageChange = (image: string) => {
-    setSearchParams({ image: image });
-  };
 
   const handleAddToCart = () => {
     dispatch(addItemToCart(eachItem!));
@@ -77,18 +55,18 @@ const Product = () => {
     }
   }, [eachItem, setSearchParams]);
   return (
-    <div className="bg-white pt-8 mx-4 my-4 h-fit overflow-hidden border px-6 rounded-[10px]  gap-4 grid grid-cols-3">
-      <div className="w-full col-span-3  sm:col-span-2 h-full  ">
+    <div className="bg-white  pt-8 mx-4 my-4 h-full overflow-hidden border px-16 rounded-[10px]  gap-4 grid grid-cols-3">
+      <div className="w-full col-span-3  lg:col-span-2 h-full  ">
         <div className="h-full w-full  flex flex-col">
-          <div className="relative h-full w-full  flex flex-col justify-start items-center">
-            <div className="w-full h-fit flex justify-center">
+          <div className="relative h-full overflow-hidden   w-full  flex flex-col justify-start items-center">
+            <div className="w-full h-fit   flex justify-center">
               <img
                 src={eachItem?.img}
                 alt=""
-                className="w-[70%]  object-cover"
+                className="w-full h-full sm:w-[70%]  object-cover"
               />
             </div>
-            <div className="absolute  flex justify-evenly cursor-pointer items-center top-[50%] left-[50%] -translate-x-[50%] w-48 h-12 py-3 rounded-full bg-[#EEEDEA]">
+            <div className="sm:absolute   flex justify-evenly cursor-pointer items-center sm:top-[50%] sm:left-[50%] sm:-translate-x-[50%] w-48 h-12 py-3 rounded-full bg-[#EEEDEA]">
               <MoveLeft
                 onClick={handlePrev}
                 className="text-[#525151] hover:scale-x-125  hover:text-black transition-all"
@@ -99,8 +77,8 @@ const Product = () => {
                 className="text-[#525151] hover:scale-x-125  hover:text-black transition-all"
               />
             </div>
-            <div className="w-full h-[30%]  p-4 gap-3 overflow-auto flex justify-center">
-              {eachItem?.subCartItem.map((sub, index) => {
+            <div className="w-full h-[30%]  p-4 gap-3 overflow-auto  flex justify-center">
+              {eachItem?.subCartItem.map((sub) => {
                 return (
                   <div
                     onClick={() => {
@@ -115,7 +93,7 @@ const Product = () => {
                     }}
                     className={`${
                       sub.isSelected ? "border-2 border-[#2562E9]" : ""
-                    } hover:border-[#2562E9] cursor-pointer rounded-[10px] border w-[100px] h-[100px]`}>
+                    } hover:border-[#2562E9] cursor-pointer rounded-[10px] border w-[100px] max-w-24 sm:h-[100px]`}>
                     <img src={sub.uri} alt="" className="object-cover " />
                   </div>
                 );
@@ -124,9 +102,9 @@ const Product = () => {
           </div>
         </div>
       </div>
-      <div className="col-span-3 sm:col-span-1 flex flex-col gap-2">
+      <div className="col-span-3   lg:col-span-1 flex flex-col gap-2">
         <div className="flex flex-col gap-3">
-          <h2 className="text-black font-bold text-[2.8rem] leading-tight">
+          <h2 className="text-black font-bold text-[3rem] leading-tight">
             {eachItem?.name}
           </h2>
           <div className="bg-[#2562E9] w-fit h-fit rounded-full p-2 flex justify-center items-center font-medium">
@@ -143,6 +121,7 @@ const Product = () => {
             {eachItem?.productColor?.map((col) => {
               return (
                 <button
+                  key={col.id}
                   onClick={() => {
                     dispatch(
                       changeColorButton({ id: eachItem.id, proColId: col.id })
@@ -162,12 +141,12 @@ const Product = () => {
             <h2 className="text-black font-semibold">SIZE</h2>
           )}
           <div className="flex flex-wrap gap-2">
-            {eachItem?.productSize?.map((size) => {
+            {eachItem?.productSize?.map((size, idx) => {
               return (
                 <button
+                  key={idx}
                   onClick={() => {
                     updatedParams.set("size", size.size);
-                    // Update the search params without overwriting other params
                     setSearchParams(updatedParams);
                     dispatch(
                       changeSizeColorButton({
