@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 # React + TypeScript + Vite
 
 This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
@@ -28,3 +29,7 @@ export default {
 - Replace `plugin:@typescript-eslint/recommended` to `plugin:@typescript-eslint/recommended-type-checked` or `plugin:@typescript-eslint/strict-type-checked`
 - Optionally add `plugin:@typescript-eslint/stylistic-type-checked`
 - Install [eslint-plugin-react](https://github.com/jsx-eslint/eslint-plugin-react) and add `plugin:react/recommended` & `plugin:react/jsx-runtime` to the `extends` list
+=======
+# Fashion-e-commerce-website
+Built a responsive e-commerce platform using React, Tailwind CSS, ShadCN UI, TypeScript, and Redux. Features include dynamic cart management, product filtering with URL parameters, mobile-friendly navigation with drawers, and type-safe global state management. Focused on performance, UX, and scalable code.
+>>>>>>> 67f3e902e13eb2cb417a78fabca81cd73b2460a8
