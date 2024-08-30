@@ -55,7 +55,7 @@ const Product = () => {
     }
   }, [eachItem, setSearchParams]);
   return (
-    <div className="bg-white  pt-8 mx-4 my-4 h-full overflow-hidden border px-16 rounded-[10px]  gap-4 grid grid-cols-3">
+    <div className="bg-white  py-8 mx-4 my-4 h-full overflow-hidden border px-16 rounded-[10px]  gap-4 grid grid-cols-3">
       <div className="w-full col-span-3  lg:col-span-2 h-full  ">
         <div className="h-full w-full  flex flex-col">
           <div className="relative h-full overflow-hidden   w-full  flex flex-col justify-start items-center">
