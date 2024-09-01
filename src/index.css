@@ -35,6 +35,11 @@ body {
 body::selection{
   background-color: #5EEAD4;
 }
+.text-stroke-black {
+  @apply text-white; /* Fill color */
+  -webkit-text-stroke: 1px black; /* Adds a black stroke */
+  -webkit-text-stroke-width: 2px;
+}
 
 @keyframes marquee {
   0% {
