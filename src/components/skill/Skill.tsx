@@ -5,15 +5,73 @@ import { FaReact, FaGitSquare } from "react-icons/fa";
 import { RiTailwindCssFill, RiNextjsFill } from "react-icons/ri";
 import { TbBrandReactNative } from "react-icons/tb";
 import { SiRedux, SiTypescript, SiJavascript } from "react-icons/si";
-
+import {motion} from "framer-motion"
+// const skillList = Array(8);
+const skillList = [
+  { name: "Javascript" ,icon: <SiJavascript />,},
+  { name: "React" ,icon: <FaReact />,},
+  { name: "Tailwind Css",icon: <RiTailwindCssFill />, },
+  { name: "React Native" ,icon: <TbBrandReactNative />,},
+  { name: "Redux" ,icon: <SiRedux />,},
+  { name: "Next Js" ,icon: <RiNextjsFill />,},
+  { name: "Git" ,icon: <FaGitSquare />,},
+  { name: "Typescript" ,icon: <SiTypescript />,},
+  ,
+];
+const skillAnimationVariant = {
+  initial: { y: -100, opacity: 0 },
+  animate: (idx: number) => ({
+    y: 0,
+    opacity: 1,
+    transition: { delay: 0.05 * idx },
+  }),
+};
 const Skill = () => {
   return (
-    <div className="bg-blue600 text-black h-[500px]  w-full flex flex-col px items-center gap-20">
+    <div
+      id="skill"
+      className="text-black scroll-mt-24 min-h-screen   w-full flex flex-col px-14 mt-1 items-center gap-8">
       <h2 className="text-4xl">
-        My <span className="font-semibold">Skills</span>
+        My <span className="font-bold">Skills</span>
       </h2>
       <div className="w-full flex flex-wrap gap-5 justify-center">
-        <div className="w-36 h-40 border gap-6 group cursor-pointer border-black flex flex-col justify-center items-center rounded-[4px] bg-white hover:bg-black">
+        {skillList.map((a,idx) => {
+          return (
+            <motion.div  
+            variants={skillAnimationVariant}
+            viewport={{ once: true }}
+            initial="initial"
+            custom={idx}
+            whileInView="animate" className="w-36 h-40 border gap-6 group cursor-pointer border-black flex flex-col justify-center items-center rounded-[4px] bg-white hover:bg-black">
+              {a?.name === "Javascript" && (
+                <SiJavascript className="group-hover:text-white text-black text-3xl" />
+              )}
+              {a?.name === "React" && (
+                <FaReact className="group-hover:text-white text-black text-3xl" />
+              )}
+              {a?.name === "Tailwind Css" && (
+                <RiTailwindCssFill className="group-hover:text-white text-black text-3xl" />
+              )}
+              {a?.name === "React Native" && (
+                <TbBrandReactNative className="group-hover:text-white text-black text-3xl" />
+              )}
+              {a?.name === "Redux" && (
+                <SiRedux className="group-hover:text-white text-black text-3xl" />
+              )}
+              {a?.name === "next Js" && (
+                <RiNextjsFill className="group-hover:text-white text-black text-3xl" />
+              )}
+              {a?.name === "Git" && (
+                <FaGitSquare className="group-hover:text-white text-black text-3xl" />
+              )}
+              {a?.name === "Typescript" && (
+                <SiTypescript className="group-hover:text-white text-black text-3xl" />
+              )}
+              <h1 className="group-hover:text-white">{a?.name}</h1>
+            </motion.div>
+          );
+        })}
+        {/* <div className="w-36 h-40 border gap-6 group cursor-pointer border-black flex flex-col justify-center items-center rounded-[4px] bg-white hover:bg-black">
           <SiJavascript className="group-hover:text-white text-black text-3xl" />
           <h1 className="group-hover:text-white">Javascript</h1>
         </div>
@@ -44,7 +102,7 @@ const Skill = () => {
         <div className="w-36 h-40 border group cursor-pointer border-black flex flex-col gap-6 justify-center items-center rounded-[4px] bg-white hover:bg-black">
           <SiTypescript className="group-hover:text-white text-3xl" />
           <h1 className="group-hover:text-white">Typescript</h1>
-        </div>
+        </div> */}
       </div>
     </div>
   );

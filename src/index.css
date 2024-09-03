@@ -1,6 +1,10 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+html {
+  scroll-behavior: smooth;
+  --line-color:#e5e7b
+}
 :root {
   font-family: Inter, system-ui, Avenir, Helvetica, Arial, sans-serif;
   line-height: 1.5;
@@ -29,7 +33,6 @@ body {
   padding: 0;
   box-sizing: border-box;
   background-color: #fafafa;
-  
 }
 
 body::selection{
@@ -38,7 +41,7 @@ body::selection{
 .text-stroke-black {
   @apply text-white; /* Fill color */
   -webkit-text-stroke: 1px black; /* Adds a black stroke */
-  -webkit-text-stroke-width: 2px;
+  -webkit-text-stroke-width: 1px;
 }
 
 @keyframes marquee {

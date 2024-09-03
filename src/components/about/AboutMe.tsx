@@ -1,9 +1,9 @@
 const AboutMe = () => {
   return (
-    <div className="bg-k text-black h-[500px]  w-full flex justify-between   px-10 items-center gap-20">
-      <div className="flex flex-col gap-6 max-w-lg">
+    <div id="about" className="bg-k text-black min-h-screen scroll-mt-10 sm:h-[500px] w-full fleco sm:flex justify-between   px-14 items-center gap-20">
+      <div className="flex flex-col  gap-6 max-w-lg">
         <h2 className="text-4xl">
-          About <span className="font-semibold ">Me</span>{" "}
+          About <span className="font-bold ">Me</span>{" "}
         </h2>
         <p>
           Lorem ipsum dolor sit amet consectetur adipisicing elit. Saepe, sequi
@@ -22,7 +22,9 @@ const AboutMe = () => {
           illo? Sint alias a nulla aliquid accusamus?
         </p>
       </div>
-      <div></div>
+      <div>
+        <img src="assets/Group.png" alt="" />
+      </div>
     </div>
   );
 };
