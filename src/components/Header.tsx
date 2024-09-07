@@ -43,10 +43,13 @@ const Header = () => {
         })}
       </div>
 
-      <Button className="flex bg-black rounded-[6px] text-white gap-2 hover:bg-[#0000006e] transition-all delay-75 items-center">
+      <a
+        href="https://standardresume.co/r/ENmx76y4_pfOqf_iR93wu"
+        target="_blank"
+        className="flex bg-black hover:bg-[#000000af] p-2 rounded-[6px] text-white gap-2 hover:text-white transition-all delay-75 items-center">
         <h1>Resume</h1>
         <Download />
-      </Button>
+      </a>
     </motion.div>
   );
 };

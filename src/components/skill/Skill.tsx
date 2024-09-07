@@ -30,7 +30,7 @@ const Skill = () => {
   return (
     <div
       id="skill"
-      className="text-black scroll-mt-24 min-h-screen   w-full flex flex-col px-14 mt-1 items-center gap-8">
+      className="text-black scroll-mt-24 h-fit py-10  w-full flex flex-col px-14 mt-1 items-center gap-8">
       <h2 className="text-4xl">
         My <span className="font-bold">Skills</span>
       </h2>

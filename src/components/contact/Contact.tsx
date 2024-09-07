@@ -3,8 +3,8 @@ import React from "react";
 
 const Contact = () => {
   return (
-    <div id="contact" className="bg-blue600 bg-white text-black justify-between p-14 h-screen  w-full flex items-center gap-20 ">
-      <div className="flex flex-col justify-center gap-4 flex-1">
+    <div id="contact" className="bg-blue600 bg-white text-black justify-between px-6 sm:p-14 h-fit py-10   w-full flex flex-col lg:flex-row items-center gap-5 sm:gap-20 ">
+      <div className="flex flex-col justify-center gap-4  w-full   flex-1">
         <div className="w-full border border-black px-4 py-2 rounded-[4px]">
           <input
             placeholder="Your Name"
