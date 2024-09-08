@@ -11,7 +11,8 @@
   "compilerOptions": {
     "baseUrl": ".",
     "paths": {
-      // "@/*": ["./src/*"]
-    }
+      "@/*": ["src/*"]  // Adjust this according to your folder structure
+    },
+    "typeRoots": ["node_modules/@types"]
   }
 }

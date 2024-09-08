@@ -1,5 +1,4 @@
 import { Github, Instagram, Twitter } from "lucide-react";
-import React from "react";
 
 const Contact = () => {
   return (

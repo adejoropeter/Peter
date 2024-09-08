@@ -1,6 +1,3 @@
-import React from "react";
-import { Link } from "react-router-dom";
-import { Button } from "./ui/button";
 import { Download } from "lucide-react";
 import { motion } from "framer-motion";
 const links = [

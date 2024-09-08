@@ -1,4 +1,5 @@
 /** @type {import('tailwindcss').Config} */
+const textFillStroke = require('tailwindcss-text-fill-stroke');
 module.exports = {
   darkMode: ["class"],
   content: [
@@ -73,5 +74,5 @@ module.exports = {
       },
     },
   },
-  plugins: [require("tailwindcss-animate"),require('tailwindcss-text-fill-stroke'),],
+  plugins: [require("tailwindcss-animate"),require('tailwindcss-text-fill-stroke')],
 }

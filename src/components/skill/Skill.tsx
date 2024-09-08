@@ -1,6 +1,3 @@
-import { Instagram } from "lucide-react";
-import React from "react";
-import { IoLogoJavascript } from "react-icons/io";
 import { FaReact, FaGitSquare } from "react-icons/fa";
 import { RiTailwindCssFill, RiNextjsFill } from "react-icons/ri";
 import { TbBrandReactNative } from "react-icons/tb";

@@ -1,6 +1,3 @@
-import { getYear } from "date-fns";
-import React from "react";
-import { Link } from "react-router-dom";
 
 const Footer = () => {
   return (

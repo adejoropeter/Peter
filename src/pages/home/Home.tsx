@@ -1,5 +1,4 @@
 import Skill from "../../components/skill/Skill";
-import Experience from "../../components/experience/Experience";
 import Intro from "../../components/intro/Intro";
 import AboutMe from "../../components/about/AboutMe";
 import Project from "../../components/project/Project";
@@ -10,7 +9,6 @@ const Home = () => {
     <div className="">
       <Intro />
         <Skill />
-      {/* <Experience /> */}
       <AboutMe />
       <Project />
       <Contact />
