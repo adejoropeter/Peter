@@ -3,7 +3,7 @@
 @tailwind utilities;
 html {
   scroll-behavior: smooth;
-  --line-color:#e5e7b
+  --line-color: #e5e7b;
 }
 :root {
   font-family: Inter, system-ui, Avenir, Helvetica, Arial, sans-serif;
@@ -26,6 +26,8 @@ a {
 }
 a:hover {
   color: #535bf2;
+  /* visibility: hidden; */
+  /* display: ; */
 }
 
 body {
@@ -33,10 +35,11 @@ body {
   padding: 0;
   box-sizing: border-box;
   background-color: #fafafa;
+  font-family: "Roboto", sans-serif; /* Use the font imported from Google Fonts */
 }
 
-body::selection{
-  background-color: #5EEAD4;
+body::selection {
+  background-color: #5eead4;
 }
 .text-stroke-black {
   @apply text-white; /* Fill color */

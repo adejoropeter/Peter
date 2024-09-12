@@ -1,25 +1,12 @@
 import { Github } from "lucide-react";
-
-const projectList = [
-  {
-    projectName: "Magenta",
-    desc: "Built a comprehensive financial management platform designed for companies to manage their finances and streamline cash flow processes effectively",
-    uri: "assets/magenta.png",
-    gitHubLink: "https://github.com/magenta-techx/Magenta-dashboard",
-  },
-  {
-    projectName: "Fashion E-commerce",
-    desc: "Built a simple responsive e-commerce platform using React, Tailwind CSS, ShadCN UI, TypeScript, and Redux",
-    uri: "assets/Screenshot (7).png",
-    gitHubLink: "https://github.com/adejoropeter/Fashion-e-commerce-website",
-  },
-  {
-    projectName: "Konect",
-    desc: "Konect's website is designed to be a user-friendly platform where donors can easily connect with various causes and make contributions",
-    uri: "assets/Ngo.png",
-    gitHubLink: "https://github.com/adejoropeter/U-hack-Pro",
-  },
-];
+import { projectList } from "../../data";
+type ProjectType = {
+  projectName: string;
+  desc: string;
+  uri: string;
+  gitHubLink: string;
+}[];
+const projects: ProjectType = projectList;
 const Project = () => {
   return (
     <div
@@ -29,7 +16,7 @@ const Project = () => {
         My <span className="font-bold">Projects</span>
       </h2>
       <div className="w-full flex flex-col items-center  bg-red00 p-10 gap-5 justify-center">
-        {projectList.map((a) => {
+        {projects.map((a) => {
           return (
             <div
               key={a.desc}

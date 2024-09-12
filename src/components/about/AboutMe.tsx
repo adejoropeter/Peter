@@ -24,7 +24,7 @@ const AboutMe = () => {
       </div>
       <div className="flex-1 mt-5">
         <img
-          src="assets/Group.png"
+          src="assets/Group1.png"
           alt=""
           className="w-full object-fill h-[25rem]"
         />

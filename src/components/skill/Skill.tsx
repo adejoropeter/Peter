@@ -2,17 +2,17 @@ import { FaReact, FaGitSquare } from "react-icons/fa";
 import { RiTailwindCssFill, RiNextjsFill } from "react-icons/ri";
 import { TbBrandReactNative } from "react-icons/tb";
 import { SiRedux, SiTypescript, SiJavascript } from "react-icons/si";
-import {motion} from "framer-motion"
+import { motion } from "framer-motion";
 // const skillList = Array(8);
 const skillList = [
-  { name: "Javascript" ,icon: <SiJavascript />,},
-  { name: "React" ,icon: <FaReact />,},
-  { name: "Tailwind Css",icon: <RiTailwindCssFill />, },
-  { name: "React Native" ,icon: <TbBrandReactNative />,},
-  { name: "Redux" ,icon: <SiRedux />,},
-  { name: "Next Js" ,icon: <RiNextjsFill />,},
-  { name: "Git" ,icon: <FaGitSquare />,},
-  { name: "Typescript" ,icon: <SiTypescript />,},
+  { name: "Javascript", icon: <SiJavascript /> },
+  { name: "React", icon: <FaReact /> },
+  { name: "Tailwind Css", icon: <RiTailwindCssFill /> },
+  { name: "React Native", icon: <TbBrandReactNative /> },
+  { name: "Redux", icon: <SiRedux /> },
+  { name: "Next Js", icon: <RiNextjsFill /> },
+  { name: "Git", icon: <FaGitSquare /> },
+  { name: "Typescript", icon: <SiTypescript /> },
   ,
 ];
 const skillAnimationVariant = {
@@ -27,19 +27,21 @@ const Skill = () => {
   return (
     <div
       id="skill"
-      className="text-black scroll-mt-24 h-fit py-10  w-full flex flex-col px-14 mt-1 items-center gap-8">
+      className="text-black scroll-mt-24 h-fit py-10  w-full flex flex-col px-8 sm:px-14 mt-1 items-center gap-8">
       <h2 className="text-4xl">
         My <span className="font-bold">Skills</span>
       </h2>
-      <div className="w-full flex flex-wrap gap-5 justify-center">
-        {skillList.map((a,idx) => {
+      <div className="w-full grid grid-cols-1 xs:grid-cols-2  sm:grid-cols-3 md:grid-cols-4 gap-5 place-items-center">
+        {skillList.map((a, idx) => {
           return (
-            <motion.div  
-            variants={skillAnimationVariant}
-            viewport={{ once: true }}
-            initial="initial"
-            custom={idx}
-            whileInView="animate" className="w-36 h-40 border gap-6 group cursor-pointer border-black flex flex-col justify-center items-center rounded-[4px] bg-white hover:bg-black">
+            <motion.div
+              key={a?.name}
+              variants={skillAnimationVariant}
+              viewport={{ once: true }}
+              initial="initial"
+              custom={idx}
+              whileInView="animate"
+              className="w-36 h-40 border gap-6 group cursor-pointer border-black flex flex-col justify-center items-center rounded-[4px] bg-white hover:bg-black">
               {a?.name === "Javascript" && (
                 <SiJavascript className="group-hover:text-white text-black text-3xl" />
               )}
