@@ -109,19 +109,19 @@ const Contact = () => {
           <a
             href="https://x.com/dev_apa"
             target="_blank"
-            className="cursor-pointer w-fit bg-black p-2 h-fit rounded-[2px] text-white">
+            className="cursor-pointer w-fit hover:bg-black bg-white p-2 h-fit rounded-[2px] text-black border border-black hover:text-white">
             <Twitter />
           </a>
           <a
             href="https://www.instagram.com/adej_apa"
             target="_blank"
-            className="cursor-pointer w-fit bg-black p-2 h-fit rounded-[2px] text-white">
+            className="cursor-pointer w-fit hover:bg-black bg-white p-2 h-fit rounded-[2px] text-black border border-black hover:text-white">
             <Instagram />
           </a>
           <a
             href="https://github.com/adejoropeter"
             target="_blank"
-            className="cursor-pointer w-fit bg-black p-2 h-fit rounded-[2px] text-white">
+            className="cursor-pointer w-fit hover:bg-black bg-white p-2 h-fit rounded-[2px] text-black border border-black hover:text-white">
             <Github />
           </a>
         </div>

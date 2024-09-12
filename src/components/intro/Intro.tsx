@@ -4,7 +4,7 @@ import { motion } from "framer-motion";
 const fadeInAnimation = [
   {
     name: "Facebook",
-    icon: <FacebookIcon className="group-hover:text-white" />,
+    icon: <FacebookIcon className="group-hover:text-white " />,
     link: "https://web.facebook.com/peter.adejoro.7",
   },
   {
@@ -68,7 +68,7 @@ const Intro = () => {
                 custom={idx} // Use the index for delay calculation
                 whileInView="animate"
                 viewport={{ once: true, amount: 0.6 }} // Show once when in view
-                className="w-10 h-10 border group cursor-pointer border-black flex justify-center items-center rounded-[4px] bg-white hover:bg-black">
+                className="w-10 h-10 border group cursor-pointer border-black flex justify-center items-center text-black rounded-[4px] bg-white hover:bg-black">
                 {a.icon}
               </motion.a>
             ))}
