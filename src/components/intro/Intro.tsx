@@ -5,20 +5,33 @@ const fadeInAnimation = [
   {
     name: "Facebook",
     icon: <FacebookIcon className="group-hover:text-white" />,
+    link: "https://web.facebook.com/peter.adejoro.7",
   },
-  { name: "Github", icon: <Github className="group-hover:text-white" /> },
-  { name: "Instagram", icon: <Instagram className="group-hover:text-white" /> },
-  { name: "Twitter", icon: <Twitter className="group-hover:text-white" /> },
+  {
+    name: "Github",
+    icon: <Github className="group-hover:text-white" />,
+    link: "https://github.com/adejoropeter",
+  },
+  {
+    name: "Instagram",
+    icon: <Instagram className="group-hover:text-white" />,
+    link: "https://www.instagram.com/adej_apa",
+  },
+  {
+    name: "Twitter",
+    icon: <Twitter className="group-hover:text-white" />,
+    link: "https://x.com/dev_apa",
+  },
 ];
 
 const Intro = () => {
   // Define animation variants
   const fadeInAnimationVariants = {
-    initial: { opacity: 0, y: 100 }, 
+    initial: { opacity: 0, y: 100 },
     animate: (idx: number) => ({
       opacity: 1,
       y: 0,
-      transition: { delay: 0.05 * idx, duration: 0.4 }, 
+      transition: { delay: 0.05 * idx, duration: 0.4 },
     }),
   };
 
@@ -32,8 +45,7 @@ const Intro = () => {
           <span className="text-stroke text-stroke-2 text-stroke-black text-white text-4xl font-bold">
             Developer
           </span>
-          <br /> Based In{" "}
-          <span className="font-semibold">Lagos, Nigeria.</span>
+          <br /> Based In <span className="font-semibold">Lagos, Nigeria.</span>
         </p>
         <p>
           Frontend developer and writing clean React code with over 2 years
@@ -46,7 +58,9 @@ const Intro = () => {
         <div className="flex justify-between mt-10">
           <div className="flex gap-4">
             {fadeInAnimation.map((a, idx) => (
-              <motion.div
+              <motion.a
+                href={a.link}
+                target="_blank"
                 key={a.name}
                 variants={fadeInAnimationVariants}
                 initial="initial"
@@ -54,10 +68,9 @@ const Intro = () => {
                 custom={idx} // Use the index for delay calculation
                 whileInView="animate"
                 viewport={{ once: true, amount: 0.6 }} // Show once when in view
-                className="w-10 h-10 border group cursor-pointer border-black flex justify-center items-center rounded-[4px] bg-white hover:bg-black"
-              >
+                className="w-10 h-10 border group cursor-pointer border-black flex justify-center items-center rounded-[4px] bg-white hover:bg-black">
                 {a.icon}
-              </motion.div>
+              </motion.a>
             ))}
           </div>
         </div>
